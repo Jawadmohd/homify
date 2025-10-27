@@ -1,4 +1,6 @@
 const listing = require("../models/listings.js");
+const user = require("../models/user.js");
+const review = require("../models/review.js");
 const NodeGeocoder = require("node-geocoder");
 const options = {
   provider: 'openstreetmap',
@@ -50,6 +52,9 @@ module.exports.newListingAdd = async (req, res, next) => {
 
     // 3️⃣ Save listing
     await newListing.save();
+   let userId = await user.findById(owner);
+   userId.listings.push(newListing);
+   await userId.save();
 
     req.flash("success", "Listing added successfully!");
     res.redirect("/listings");
@@ -64,8 +69,7 @@ module.exports.showListing = async (req, res) => {
 
     let listingId = await listing.findById(id).populate("reviewIds").populate("owner");
     let reviews = listingId.reviewIds;
-    const cloudinaryKey = process.env.CLOUD_API;
-    res.render("show", { listingId, id, reviews, cloudinaryKey});
+    res.render("show", { listingId, id, reviews});
 
 };
 

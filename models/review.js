@@ -21,10 +21,10 @@ const reviewSchema = mongoose.Schema({
         required: true
     },
     createdBy: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "user",
-            required: false
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        required: false
+    }
 });
 
 const review = new mongoose.model("review", reviewSchema);

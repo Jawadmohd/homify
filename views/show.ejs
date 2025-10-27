@@ -114,7 +114,7 @@
                         </p>
                         <p class="starability-result" data-rating="<%= review.rating %>">
                         </p>
-                        <% if(currUser && currUser.equals(listingId.owner._id)) { %>
+                        <% if(currUser && currUser.equals(review.createdBy)) { %>
                             <form class="mb-2" action="/listings/<%= id %>/review/<%= review._id %>?_method=DELETE"
                                 method="post">
                                 <button type="submit" class="btn btn-dark">Delete</button>
