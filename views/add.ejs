@@ -1,0 +1,55 @@
+<% layout("/layouts/boilerplate") %>
+
+  <form class="row row-cols-md-1 row-cols-sm-1 row-cols-1 needs-validation" action="/listings/new" method="post"
+    novalidate enctype="multipart/form-data">
+    <div class="row align-items-start"></div>
+    <div class="row">
+      <h2>Airbnb your home</h2>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-3">
+      <label for="name" class="form-label">Enter name</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+      <div class="invalid-feedback">
+        Please enter a name.
+      </div>
+    </div>
+    <div class="col-lg-6 mb-3">
+      <label for="description" class="form-label">Enter description</label>
+      <textarea type="text" class="form-control" id="description" name="description" required></textarea>
+      <div class="invalid-feedback">
+        Please enter a description.
+      </div>
+    </div>
+    <div class="col mb-3">
+      <label for="price" class="form-label">Enter price</label>
+      <input class="form-control" id="price" name="price" required>
+      <div class="invalid-feedback">
+        Please enter a price.
+      </div>
+    </div>
+    <div class="col mb-3">
+      <label for="photos" class="form-label">Please upload photos</label>
+      <input type="file" class="form-control" id="photos" name="photos" multiple>
+    </div>
+    <div class="col mb-3">
+      <label for="country" class="form-label">Enter country</label>
+      <input type="text" class="form-control" id="country" name="country" required>
+      <div class="invalid-feedback">
+        Please enter a country.
+      </div>
+    </div>
+    <div class="btn-group col-lg-6" role="group" aria-label="Basic radio toggle button group">
+  <input type="radio" class="btn-check form-control" name="type" value="mountains" id="btnradio1" autocomplete="off" required>
+  <label class="btn btn-outline-primary" for="btnradio1">Mountains</label>
+
+  <input type="radio" class="btn-check form-control" name="type" id="btnradio2" value="city" autocomplete="off" required>
+  <label class="btn btn-outline-primary" for="btnradio2">City</label>
+
+  <input type="radio" class="btn-check form-control" name="type" value="jungle" id="btnradio3" autocomplete="off" required>
+  <label class="btn btn-outline-primary" for="btnradio3">Jungle</label>
+</div>
+    <div>
+      <button class="btn btn-primary col-lg-3 col-md-3 col-sm-2 mt-4 mb-3 mb-lg-5" type="submit">Add</button>
+    </div>
+    </div>
+  </form>

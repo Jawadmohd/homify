@@ -1,0 +1,24 @@
+<% layout("/layouts/boilerplate") %>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h3>All Listings</h3>
+            </div>
+        </div>
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+            <% for(let listing of listings){ %>
+
+                <div class="card mb-3">
+                    <img src="<%= listing.photos[0] %>" class="card-img-top" alt="..."
+                        style="height: 20rem; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= listing.name %>
+                        </h5>
+                        <p class="card-text">$<%= listing.price %>/night</p>
+                        <a href="/listings/<%= listing._id %>" class="btn btn-primary">Book</a>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+    </div>

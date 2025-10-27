@@ -1,0 +1,64 @@
+<% layout("/layouts/boilerplate") %>
+  <div class="container row offset-lg-2 align-items-start">
+    <div class="card edit-image col-lg-8 mb-3">
+                  <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                    <% for(let i=0; i< listingId.photos.length; i++) { %>
+                        <div class="carousel-item active">
+                            <img src="<%= listingId.photos[i] %>" class="d-block w-100" alt="Some image">
+                        </div>
+                        <% } %>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+      <form class="needs-validation" action="/listings/<%= id %>/edit?_method=PATCH" method="post" novalidate enctype="multipart/form-data">
+        <div class="row row-cols-md-1 row-cols-sm-1 row-cols-1">
+          <div class="col-lg-4 mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input id="name" class="form-control" type="text" name="name" value="<%= listingId.name %>" required>
+            <div class="invalid-feedback">
+              Please enter a name.
+            </div>
+          </div>
+          <div class="col-lg-8 mb-3">
+            <label class="form-label" for="description">Description</label>
+            <textarea id="description" class="form-control" type="text" name="description"
+              required> <%= listingId.description %> </textarea>
+            <div class="invalid-feedback">
+              Please enter a description.
+            </div>
+          </div>
+          <div class="col mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input id="price" class="form-control" name="price" value="<%= listingId.price %>" required>
+            <div class="invalid-feedback">
+              Please enter a price.
+            </div>
+          </div>
+          <div class="col mb-3">
+            <label for="photos" class="form-label">Photos</label>
+            <input id="photos" class="form-control" type="file" name="photos"
+             multiple>
+          </div>
+          <div class="col mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" class="form-control" name="country" value="<%= listingId.country %>" required>
+            <div class="invalid-feedback">
+              Please enter a country.
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-success mb-3 col-sm-3 col-lg-2" type="submit">Save</button>
+      </form>
+    </div>
+  </div>

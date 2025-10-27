@@ -1,0 +1,26 @@
+*{
+    font-family: "Nunito", sans-serif;
+
+}
+
+.card{
+    border: none !important;
+}
+
+.card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body{
+    padding: 0 !important;
+}
+
+.edit-img{
+    width: 100% !important
+}
+
+.review-card{
+    border: 1px solid black !important;
+}
