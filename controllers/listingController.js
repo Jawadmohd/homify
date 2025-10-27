@@ -1,6 +1,5 @@
 const listing = require("../models/listings.js");
 const user = require("../models/user.js");
-const review = require("../models/review.js");
 const NodeGeocoder = require("node-geocoder");
 const options = {
   provider: 'openstreetmap',
@@ -31,9 +30,22 @@ module.exports.newListingAdd = async (req, res, next) => {
     const photos = req.files.map(f => f.path);
 
     // 1️⃣ Get geocode
-    const result = await geocoder.geocode(country);
-    const longitude = result[0].longitude;
-    const latitude = result[0].latitude;
+    let longitude = 0;
+    let latitude = 0;
+
+    try {
+      const result = await geocoder.geocode(country);
+
+      if (result.length) {
+        longitude = result[0].longitude;
+        latitude = result[0].latitude;
+      } else {
+        req.flash('warning', 'Could not fetch location, coordinates set to 0,0.');
+      }
+    } catch (geoErr) {
+      console.error('Geocoding error:', geoErr.message);
+      req.flash('warning', 'Error fetching location, coordinates set to 0,0.');
+    }
 
     // 2️⃣ Create listing with location
     const newListing = new listing({
@@ -44,7 +56,7 @@ module.exports.newListingAdd = async (req, res, next) => {
       country,
       owner,
       geoLocation: {
-        type: "Point",
+        type: 'Point',
         coordinates: [longitude, latitude]
       },
       type
@@ -52,12 +64,12 @@ module.exports.newListingAdd = async (req, res, next) => {
 
     // 3️⃣ Save listing
     await newListing.save();
-   let userId = await user.findById(owner);
-   userId.listings.push(newListing);
-   await userId.save();
+    let userId = await user.findById(owner);
+    userId.listings.push(newListing);
+    await userId.save();
 
-    req.flash("success", "Listing added successfully!");
-    res.redirect("/listings");
+    req.flash('success', 'Listing added successfully!');
+    res.redirect('/listings');
 
   } catch (err) {
     next(err);
