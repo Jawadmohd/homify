@@ -29,6 +29,8 @@ module.exports.newListingAdd = async (req, res, next) => {
     const owner = res.locals.currUser._id;
     const photos = req.files.map(f => f.path);
 
+    console.log(photos, req.body);
+
     let longitude = 0;
     let latitude = 0;
 
