@@ -136,7 +136,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const coordinates = JSON.parse("<%- JSON.stringify(listingId.geoLocation.coordinates) %>");
-            console.log('Coordinates:', coordinates); // Debug log
 
             if (!coordinates || coordinates.length !== 2) {
                 console.error('Invalid coordinates format');
