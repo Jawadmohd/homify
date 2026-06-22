@@ -26,7 +26,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsMate);
 
 
-mongoose.connect(process.env.MONGO_URL);
+mongoose.connect(process.env.MONGO_URL)
+  .then(()=> console.log("Connected to database"))
+  .catch((err)=> console.log(err));
 
 const store = MongoStore.create({
   mongoUrl: process.env.MONGO_URL,
@@ -58,7 +60,7 @@ passport.deserializeUser(user.deserializeUser());
 passport.use(new LocalStrategy(user.authenticate()));
 
 app.use((req, res, next) => {
-  res.locals.currUser = req.user;
+  res.locals.currUser = req.user || null;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
