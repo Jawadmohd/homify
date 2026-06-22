@@ -11,16 +11,16 @@ const upload = multer({ storage })
 
 router.get("/", wrapAsync(homePage));
 
-router.get("/add", isAuthenticate, getAddListingsPage);
+router.get("/listings/add", isAuthenticate, getAddListingsPage);
 
-router.post("/new", upload.array('photos', 12),isAuthenticate, validateListing, wrapAsync(newListingAdd));
+router.post("/listings/new", upload.array('photos', 12),isAuthenticate, validateListing, wrapAsync(newListingAdd));
 
-router.get("/:id", wrapAsync(showListing));
+router.get("/listings/:id", wrapAsync(showListing));
 
-router.get("/:id/edit", isAuthenticate ,verifyOwnerListing ,wrapAsync(getEditListing));
+router.get("/listings/:id/edit", isAuthenticate ,verifyOwnerListing ,wrapAsync(getEditListing));
 
-router.patch("/:id/edit", upload.array("photos", 12), isAuthenticate ,verifyOwnerListing,validateListing, wrapAsync(editListing));
+router.patch("/listings/:id/edit", upload.array("photos", 12), isAuthenticate ,verifyOwnerListing,validateListing, wrapAsync(editListing));
 
-router.delete("/:id/delete", isAuthenticate, verifyOwnerListing,wrapAsync(deleteListing));
+router.delete("/listings/:id/delete", isAuthenticate, verifyOwnerListing,wrapAsync(deleteListing));
 
 module.exports = router;
