@@ -29,7 +29,6 @@ module.exports.newListingAdd = async (req, res, next) => {
     const owner = res.locals.currUser._id;
     const photos = req.files.map(f => f.path);
 
-    // 1️⃣ Get geocode
     let longitude = 0;
     let latitude = 0;
 
@@ -47,7 +46,6 @@ module.exports.newListingAdd = async (req, res, next) => {
       req.flash('warning', 'Error fetching location, coordinates set to 0,0.');
     }
 
-    // 2️⃣ Create listing with location
     const newListing = new listing({
       name,
       description,
@@ -62,14 +60,13 @@ module.exports.newListingAdd = async (req, res, next) => {
       type
     });
 
-    // 3️⃣ Save listing
     await newListing.save();
     let userId = await user.findById(owner);
     userId.listings.push(newListing);
     await userId.save();
 
     req.flash('success', 'Listing added successfully!');
-    res.redirect('/listings');
+    res.redirect('/');
 
   } catch (err) {
     next(err);
@@ -111,7 +108,7 @@ module.exports.editListing = async (req, res) => {
     }
 
     req.flash("success", "Listing Edited!");
-    res.redirect(`/listings`)
+    res.redirect(`/`)
 
 };
 
@@ -120,6 +117,6 @@ module.exports.deleteListing = async (req, res) => {
 
     await listing.findByIdAndDelete(id);
     req.flash("success", "Listing Deleted!");
-    res.redirect("/listings");
+    res.redirect("/");
 
 };
