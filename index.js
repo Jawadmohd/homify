@@ -80,7 +80,7 @@ app.get("/search", wrapAsync(async(req, res) => {
     }
 }));
 app.use("/", userRouter);
-app.use("/listings", listingRouter);
+app.use("/", listingRouter);
 app.use("/listings/:id/review", reviewRouter);
 
 app.use((req, res, next) => {
