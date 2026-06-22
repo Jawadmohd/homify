@@ -15,7 +15,7 @@ module.exports.signUp = async (req, res, next) => {
             return next(err);
         }
     req.flash("success", "Welcome to Airbnb!");
-    res.redirect("/listings");
+    res.redirect("/");
 
     });
    
@@ -27,7 +27,7 @@ module.exports.getLogin =  (req, res) => {
 
 module.exports.loginUser = (req, res) => {
         req.flash("success", "Welcome back!");
-        let redirectUrl = res.locals.redirectUrl || "/listings";
+        let redirectUrl = res.locals.redirectUrl || "/";
         res.redirect(redirectUrl);
     };
 
@@ -35,6 +35,6 @@ module.exports.logOut = (req, res, next) => {
     req.logout(err => {
         if (err) return next(err);
         req.flash("success", "You have logged out successfully!");
-        res.redirect("/listings");
+        res.redirect("/");
     });
 };
