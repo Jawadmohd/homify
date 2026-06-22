@@ -26,9 +26,20 @@ app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsMate);
 
 
-mongoose.connect(process.env.MONGO_URL)
-  .then(()=> console.log("Connected to database"))
-  .catch((err)=> console.log(err));
+async function startServer() {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+
+    console.log("MongoDB Connected");
+
+    app.listen(port, () => {
+      console.log(`Server running on ${port}`);
+    });
+
+  } catch (err) {
+    console.error("Mongo Error:", err);
+  }
+}
 
 const store = MongoStore.create({
   mongoUrl: process.env.MONGO_URL,
@@ -79,4 +90,4 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error.ejs", { message });
 });
 
-app.listen(port);
+startServer();
