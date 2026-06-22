@@ -2,9 +2,22 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <h3>All Listings</h3>
+                <h3>
+                    <% if (typeof searchKey !== "undefined") { %>
+                        Results for "<%= searchKey %>"
+                    <% } else { %>
+                        All Listings
+                    <% } %>
+                </h3>
             </div>
         </div>
+        <% if (typeof searchKey !== "undefined" && listings.length === 0) { %>
+        <div class="row">
+            <div class="col">
+                <p class="text-muted">No listings found for "<%= searchKey %>".</p>
+            </div>
+        </div>
+        <% } else { %>
         <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
             <% for(let listing of listings){ %>
 
@@ -21,4 +34,5 @@
                 </div>
                 <% } %>
         </div>
+        <% } %>
     </div>

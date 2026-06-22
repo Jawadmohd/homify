@@ -7,7 +7,7 @@ const listingSchema = joi.object({
         price: joi.number().min(0).required(),
         photos: joi.string().allow("", null),
         country: joi.string().required(),
-        type: joi.string().required(),
+        type: joi.string(),
 });
 
 const validateListingSchema = (req, res, next) => {

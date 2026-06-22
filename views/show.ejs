@@ -136,9 +136,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const coordinates = JSON.parse("<%- JSON.stringify(listingId.geoLocation.coordinates) %>");
+            const mapEl = document.getElementById("map");
 
             if (!coordinates || coordinates.length !== 2) {
-                console.error('Invalid coordinates format');
+                mapEl.innerHTML = '<p class="text-muted p-3">Map unavailable for this listing.</p>';
+                return;
+            }
+
+            if (coordinates[0] === 0 && coordinates[1] === 0) {
+                mapEl.innerHTML = '<p class="text-muted p-3">Location could not be determined for this listing.</p>';
                 return;
             }
 
